@@ -1,0 +1,748 @@
+<title>Funngro Teenlancer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1512;
+    --surface:#121e1a;
+    --surface-raised:#17251f;
+    --border:#24352e;
+    --text:#edf5f0;
+    --text-muted:#93a79d;
+    --accent:#33c481;
+    --accent-strong:#7be8ae;
+    --accent-ink:#062015;
+    --gold:#f2b84b;
+    --gold-soft:rgba(242,184,75,.14);
+    --radius-lg:20px;
+    --radius-md:14px;
+    --radius-sm:9px;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{color-scheme:dark;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  h1,h2,h3{
+    font-family:'Unbounded',ui-sans-serif,system-ui,sans-serif;
+    text-wrap:balance;
+    margin:0;
+    letter-spacing:-0.01em;
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  img,svg{display:block;}
+  .mono{
+    font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    font-variant-numeric:tabular-nums;
+  }
+  .wrap{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding-inline:clamp(20px,5vw,32px);
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent-strong);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(11,21,18,.82);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-block:14px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-family:'Unbounded',sans-serif;
+    font-weight:700;
+    font-size:17px;
+  }
+  .logo-mark{
+    width:26px;height:26px;border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-strong));
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent-ink);font-size:14px;font-weight:800;
+  }
+  .navlinks{
+    display:flex;
+    gap:28px;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--text-muted);
+  }
+  .navlinks a{text-decoration:none;}
+  .navlinks a:hover{color:var(--text);}
+  .navlinks a:focus-visible, .btn:focus-visible{outline:2px solid var(--accent-strong);outline-offset:3px;}
+  @media (max-width:760px){ .navlinks{display:none;} }
+
+  .btn{
+    appearance:none;
+    border:1px solid transparent;
+    border-radius:999px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    padding:10px 20px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--accent);
+    color:var(--accent-ink);
+  }
+  .btn-primary:hover{background:var(--accent-strong);}
+  .btn-ghost{
+    background:transparent;
+    border-color:var(--border);
+    color:var(--text);
+  }
+  .btn-ghost:hover{border-color:var(--accent);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-block:clamp(48px,8vw,88px) clamp(32px,6vw,56px);
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.15fr .85fr;
+    gap:clamp(28px,5vw,56px);
+    align-items:center;
+  }
+  @media (max-width:860px){ .hero-grid{grid-template-columns:1fr;} }
+  .hero h1{
+    font-size:clamp(32px,4.6vw,52px);
+    line-height:1.06;
+    margin-top:14px;
+  }
+  .hero .lede{
+    margin-top:18px;
+    max-width:52ch;
+    font-size:17px;
+    color:var(--text-muted);
+  }
+  .hero-ctas{
+    margin-top:28px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .hero-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:26px;
+  }
+  .stat-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  .stat-list div{border-top:1px solid var(--border);padding-top:12px;}
+  .stat-list div:nth-child(-n+2){border-top:none;padding-top:0;}
+  .stat-num{
+    font-size:22px;
+    font-weight:600;
+    color:var(--accent-strong);
+  }
+  .stat-label{
+    font-size:12.5px;
+    color:var(--text-muted);
+    margin-top:2px;
+  }
+
+  /* ---------- ticker ---------- */
+  .ticker-band{
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    background:var(--surface);
+    overflow:hidden;
+    padding-block:16px;
+  }
+  .ticker-caption{
+    text-align:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    margin-bottom:12px;
+  }
+  .ticker-track{
+    display:flex;
+    gap:14px;
+    width:max-content;
+    animation:scroll-left 34s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce){ .ticker-track{animation:none;} }
+  @keyframes scroll-left{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .chip{
+    flex:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--surface-raised);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:8px 16px;
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--text-muted);
+  }
+  .chip .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+
+  /* ---------- sections ---------- */
+  section{padding-block:clamp(52px,8vw,88px);}
+  .section-head{
+    max-width:60ch;
+    margin-bottom:clamp(32px,5vw,48px);
+  }
+  .section-head h2{
+    font-size:clamp(26px,3.4vw,36px);
+    margin-top:10px;
+  }
+  .section-head p{
+    margin-top:14px;
+    color:var(--text-muted);
+    font-size:15.5px;
+  }
+
+  /* how it works */
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+  }
+  @media (max-width:760px){ .steps{grid-template-columns:1fr;} }
+  .step{
+    background:var(--surface);
+    padding:clamp(24px,3vw,32px);
+  }
+  .step-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px;
+    font-weight:600;
+    color:var(--gold);
+  }
+  .step h3{
+    font-size:19px;
+    margin-top:14px;
+  }
+  .step p{
+    margin-top:10px;
+    font-size:14.5px;
+    color:var(--text-muted);
+  }
+  .step .gs-pill{
+    margin-top:16px;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    background:var(--gold-soft);
+    color:var(--gold);
+    border-radius:999px;
+    padding:5px 12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    font-weight:600;
+  }
+
+  /* ways to earn */
+  .earn-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:16px;
+  }
+  .earn-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .earn-icon{
+    width:40px;height:40px;
+    border-radius:11px;
+    background:var(--surface-raised);
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--accent-strong);
+  }
+  .earn-card h3{font-size:16.5px;}
+  .earn-card p{font-size:14px;color:var(--text-muted);flex:1;}
+  .reward-tag{
+    align-self:flex-start;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--accent-strong);
+    border:1px solid var(--border);
+    border-radius:999px;
+    padding:5px 11px;
+  }
+
+  /* trust band */
+  .trust{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:clamp(28px,4vw,40px);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+  }
+  @media (max-width:760px){ .trust{grid-template-columns:1fr 1fr;} }
+  .trust-item h4{
+    font-family:'Unbounded',sans-serif;
+    font-size:15px;
+    font-weight:600;
+  }
+  .trust-item p{
+    margin-top:8px;
+    font-size:13.5px;
+    color:var(--text-muted);
+  }
+
+  /* faq */
+  .faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:1px;
+    background:var(--border);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+  }
+  details{
+    background:var(--surface);
+    padding:20px 24px;
+  }
+  summary{
+    cursor:pointer;
+    list-style:none;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-weight:700;
+    font-size:15.5px;
+    gap:16px;
+  }
+  summary::-webkit-details-marker{display:none;}
+  .plus{
+    flex:none;
+    width:22px;height:22px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-size:15px;
+    color:var(--accent-strong);
+    transition:transform .18s ease;
+  }
+  details[open] .plus{transform:rotate(45deg);}
+  details p{
+    margin-top:14px;
+    color:var(--text-muted);
+    font-size:14.5px;
+    max-width:66ch;
+  }
+
+  /* seo handoff card */
+  .handoff{
+    background:var(--surface-raised);
+    border:1px dashed var(--border);
+    border-radius:var(--radius-lg);
+    padding:clamp(22px,3vw,30px);
+  }
+  .handoff h3{
+    font-size:15px;
+    display:flex;align-items:center;gap:8px;
+  }
+  .handoff h3 .tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    background:var(--gold-soft);
+    color:var(--gold);
+    padding:3px 9px;
+    border-radius:999px;
+  }
+  .handoff pre{
+    margin:16px 0 0;
+    background:var(--bg);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:16px 18px;
+    overflow-x:auto;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--text-muted);
+  }
+  .handoff pre .k{color:var(--accent-strong);}
+  .handoff pre .v{color:var(--text);}
+
+  /* final cta */
+  .cta-band{
+    text-align:center;
+    background:radial-gradient(120% 160% at 50% 0%, rgba(51,196,129,.14), transparent 60%), var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:clamp(40px,6vw,64px) 24px;
+  }
+  .cta-band h2{font-size:clamp(26px,3.6vw,38px);}
+  .cta-band p{
+    margin:14px auto 0;
+    max-width:48ch;
+    color:var(--text-muted);
+    font-size:15.5px;
+  }
+  .cta-band .hero-ctas{justify-content:center;margin-top:24px;}
+
+  footer{
+    border-top:1px solid var(--border);
+    padding-block:32px;
+  }
+  .footer-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-nav{
+    display:flex;gap:22px;
+    font-size:13.5px;
+    color:var(--text-muted);
+  }
+  .footer-nav a{text-decoration:none;}
+  .footer-nav a:hover{color:var(--text);}
+  .fineprint{
+    margin-top:18px;
+    font-size:12.5px;
+    color:var(--text-muted);
+    opacity:.8;
+  }
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Funngro free to join?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Funngro is free, forever — there is no cost to create a profile or apply to brand campaigns."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is Gig Score (GS) on Funngro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Gig Score is a reputation number that grows as you complete your profile and deliver campaigns well. A higher Gig Score surfaces you for better-paying gigs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do teens get paid on Funngro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Payments go straight to your UPI ID once a brand approves your submission — no invoices or bank transfers to chase."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need experience to start earning on Funngro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Many earners start with product sampling or short reviews, then move into content creation and paid promotions as their Gig Score grows."
+      }
+    }
+  ]
+}
+</script>
+
+<header>
+  <div class="wrap nav">
+    <div class="logo">
+      <span class="logo-mark">F</span>
+      Funngro <span style="color:var(--text-muted);font-weight:500;">/ Teenlancer</span>
+    </div>
+    <nav class="navlinks">
+      <a href="#how-it-works">How it works</a>
+      <a href="#ways-to-earn">Ways to earn</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#join" class="btn btn-primary">Start earning free</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Funngro Teenlancer</p>
+        <h1>Turn spare hours into your first paycheque.</h1>
+        <p class="lede">Funngro connects young Indians with real brand campaigns — promotions, content, referrals and product sampling — and pays straight to UPI. No fees, no experience required, no age limit on ambition.</p>
+        <div class="hero-ctas">
+          <a href="#join" class="btn btn-primary">Start earning free</a>
+          <a href="#how-it-works" class="btn btn-ghost">See how it works</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="stat-list">
+          <div>
+            <div class="stat-num mono">70L+</div>
+            <div class="stat-label">Young Indians already earning</div>
+          </div>
+          <div>
+            <div class="stat-num mono">₹0</div>
+            <div class="stat-label">Cost to join, always</div>
+          </div>
+          <div>
+            <div class="stat-num mono">₹1K–15K+</div>
+            <div class="stat-label">Typical monthly earning range</div>
+          </div>
+          <div>
+            <div class="stat-num mono">UPI</div>
+            <div class="stat-label">Direct, no-invoice payouts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker-band" aria-hidden="true">
+    <p class="ticker-caption">Kinds of gigs live on Funngro right now</p>
+    <div class="ticker-track">
+      <span class="chip"><span class="dot"></span>Food delivery reel</span>
+      <span class="chip"><span class="dot"></span>Skincare unboxing</span>
+      <span class="chip"><span class="dot"></span>Referral bonus</span>
+      <span class="chip"><span class="dot"></span>Campus ambassador</span>
+      <span class="chip"><span class="dot"></span>App install task</span>
+      <span class="chip"><span class="dot"></span>Instagram carousel</span>
+      <span class="chip"><span class="dot"></span>Product review video</span>
+      <span class="chip"><span class="dot"></span>Store visit sampling</span>
+      <!-- duplicate for seamless loop -->
+      <span class="chip"><span class="dot"></span>Food delivery reel</span>
+      <span class="chip"><span class="dot"></span>Skincare unboxing</span>
+      <span class="chip"><span class="dot"></span>Referral bonus</span>
+      <span class="chip"><span class="dot"></span>Campus ambassador</span>
+      <span class="chip"><span class="dot"></span>App install task</span>
+      <span class="chip"><span class="dot"></span>Instagram carousel</span>
+      <span class="chip"><span class="dot"></span>Product review video</span>
+      <span class="chip"><span class="dot"></span>Store visit sampling</span>
+    </div>
+  </div>
+
+  <section id="how-it-works">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Process</p>
+        <h2>Three steps from sign-up to payout.</h2>
+        <p>Every step also builds your Gig Score (GS) — the number brands see when they pick who gets the next campaign.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01</span>
+          <h3>Build your profile</h3>
+          <p>Add your qualification, an intro, past work and your interests. Each field you complete raises your Gig Score.</p>
+          <span class="gs-pill">+ up to 30 GS</span>
+        </div>
+        <div class="step">
+          <span class="step-num">02</span>
+          <h3>Pick a campaign</h3>
+          <p>Browse live briefs from brands and apply to the ones that match your interests and your Gig Score.</p>
+          <span class="gs-pill">GS unlocks better gigs</span>
+        </div>
+        <div class="step">
+          <span class="step-num">03</span>
+          <h3>Deliver &amp; get paid</h3>
+          <p>Submit your work, get it approved, and receive payment straight to your UPI ID — no invoices, no waiting.</p>
+          <span class="gs-pill">Paid in 24–48 hrs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ways-to-earn">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Ways to earn</p>
+        <h2>Pick the gig that fits your skills.</h2>
+        <p>Most earners mix two or three of these once their Gig Score starts climbing.</p>
+      </div>
+      <div class="earn-grid">
+        <div class="earn-card">
+          <div class="earn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 5V4L6 9H5a2 2 0 0 0-2 2Z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M19 5a9 9 0 0 1 0 14"/></svg>
+          </div>
+          <h3>Brand Promotion</h3>
+          <p>Share sponsored posts and stories for verified brand campaigns on your own social handles.</p>
+          <span class="reward-tag">Cash + GS</span>
+        </div>
+        <div class="earn-card">
+          <div class="earn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7Z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+          </div>
+          <h3>Content Creation</h3>
+          <p>Shoot reels, reviews and UGC videos that brands license for their own marketing.</p>
+          <span class="reward-tag">Cash + GS</span>
+        </div>
+        <div class="earn-card">
+          <div class="earn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5 15.4 6.5M8.6 13.5 15.4 17.5"/></svg>
+          </div>
+          <h3>Referral Program</h3>
+          <p>Invite friends to campaigns you've done and earn a cut of what they go on to make.</p>
+          <span class="reward-tag">Cash + GS</span>
+        </div>
+        <div class="earn-card">
+          <div class="earn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v9l9 5 9-5V8"/><path d="M12 13v9"/></svg>
+          </div>
+          <h3>Product Sampling</h3>
+          <p>Try new products from partner brands and get paid to share an honest first impression.</p>
+          <span class="reward-tag">Cash + GS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <div class="trust">
+        <div class="trust-item">
+          <h4>Free, forever</h4>
+          <p>No joining fee, no listing fee, no subscription — ever.</p>
+        </div>
+        <div class="trust-item">
+          <h4>Verified campaigns</h4>
+          <p>Every brief is reviewed before it goes live to earners.</p>
+        </div>
+        <div class="trust-item">
+          <h4>UPI-first payouts</h4>
+          <p>Money lands directly in your UPI app — no paperwork.</p>
+        </div>
+        <div class="trust-item">
+          <h4>Built for students</h4>
+          <p>Flexible around school, college and exam season.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions teen earners ask most.</h2>
+      </div>
+      <div class="faq-list">
+        <details open>
+          <summary>Is Funngro free to join?<span class="plus">+</span></summary>
+          <p>Yes. Funngro is free, forever — there's no cost to create a profile or apply to campaigns.</p>
+        </details>
+        <details>
+          <summary>What is Gig Score (GS)?<span class="plus">+</span></summary>
+          <p>Your Gig Score is a simple reputation number that grows as you complete your profile and deliver campaigns. A fuller profile and reliable delivery raise your GS, and a higher GS surfaces you for better-paying campaigns.</p>
+        </details>
+        <details>
+          <summary>How do I get paid?<span class="plus">+</span></summary>
+          <p>Payments go straight to your UPI ID once a brand approves your submission — no invoices or bank transfers to chase.</p>
+        </details>
+        <details>
+          <summary>Do I need experience to start?<span class="plus">+</span></summary>
+          <p>No. Many earners start with product sampling or short reviews and move into content creation and paid promotions as their Gig Score grows.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="seo-notes">
+    <div class="wrap">
+      <div class="handoff">
+        <h3>For the dev team <span class="tag">SEO handoff</span></h3>
+        <pre><span class="k">&lt;title&gt;</span><span class="v">Funngro Teenlancer – Earn Online as a Teen in India | Funngro</span><span class="k">&lt;/title&gt;</span>
+<span class="k">&lt;meta name="description" content="</span><span class="v">Join 70 lakh+ young Indians earning with Funngro Teenlancer — brand promotions, content, referrals & sampling. Paid to UPI, free forever.</span><span class="k">"&gt;</span>
+<span class="k">&lt;h1&gt;</span><span class="v">Turn spare hours into your first paycheque.</span><span class="k">&lt;/h1&gt;</span>
+<span class="k">Target keywords:</span><span class="v"> earn online as a teen in india, teenlancer, gen z earn, teen freelancing app</span>
+<span class="k">Schema:</span><span class="v"> FAQPage JSON-LD included inline (see page &lt;script type="application/ld+json"&gt;)</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="wrap">
+      <div class="cta-band">
+        <p class="eyebrow">Ready when you are</p>
+        <h2>Your first campaign is a profile away.</h2>
+        <p>Build your profile, pick up your first gig, and get paid to UPI — the whole thing takes less time than a class period.</p>
+        <div class="hero-ctas">
+          <a href="#" class="btn btn-primary">Start earning free</a>
+          <a href="#how-it-works" class="btn btn-ghost">Read how it works again</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="logo">
+        <span class="logo-mark">F</span>
+        Funngro
+      </div>
+      <nav class="footer-nav">
+        <a href="#how-it-works">How it works</a>
+        <a href="#ways-to-earn">Ways to earn</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+    <p class="fineprint">Design concept — Teen (Teenlancer) page redesign for Funngro, built for a website design project application. Design by Niladri.</p>
+  </div>
+</footer>
